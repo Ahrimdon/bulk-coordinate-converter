@@ -10,9 +10,9 @@ const bcc = {
     bcc.addEvents();
   },
   addEvents: () => {
-    document.getElementById('dooeet').addEventListener('click', bcc.dooeet);
+    document.getElementById('convert').addEventListener('click', bcc.convert);
   },
-  dooeet: () => {
+  convert: () => {
     bcc.coordsIn = document.getElementById('input').value // textarea value
                            .split(/[\r\n]/)               // split on carriage return
                            .map(coord => coord.trim())    // trim strings
