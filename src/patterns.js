@@ -50,17 +50,24 @@
  * https://gist.github.com/pjobson/8f44ea79d1852900457bc257a4c9fcd5
  */
 export const PATTERNS = {
-  ddLat:  /^[\+-]?(([1-8]?\d)(\.\d{1,})?|90)\D*[NSns]?$/,
-  ddLng:  /^[\+-]?((1[0-7]\d|[1-9]?\d)(\.\d{1,})?|180)\D*[EWew]?$/,
-  dmsLat: /^[\+-]?(([1-8]?\d)\D+([0-5]?\d|60)\D+([0-5]?\d|60)(\.\d+)?|90\D+0\D+0)\D+[NSns]?$/,
-  dmsLng: /^[\+-]?([1-7]?\d{1,2}\D+([0-5]?\d|60)\D+([0-5]?\d|60)(\.\d+)?|180\D+0\D+0)\D+[EWew]?$/,
+  ddLat: /^[\+-]?(([1-8]?\d)(\.\d{1,})?|90)\D*[NSns]?$/,
+  ddLng: /^[\+-]?((1[0-7]\d|[1-9]?\d)(\.\d{1,})?|180)\D*[EWew]?$/,
+  dmsLat:
+    /^[\+-]?(([1-8]?\d)\D+([0-5]?\d|60)\D+([0-5]?\d|60)(\.\d+)?|90\D+0\D+0)\D+[NSns]?$/,
+  dmsLng:
+    /^[\+-]?([1-7]?\d{1,2}\D+([0-5]?\d|60)\D+([0-5]?\d|60)(\.\d+)?|180\D+0\D+0)\D+[EWew]?$/,
   ddmLat: /^[\+-]?(([1-8]?\d)\D+[1-6]?\d(\.\d{1,})?|90(\D+0)?)\D+[NSns]?$/,
-  ddmLng: /^[\+-]?((1[0-7]\d|[1-9]?\d)\D+[1-6]?\d(\.\d{1,})?|180(\D+0)?)\D+[EWew]?$/,
-  mgrs:   /^([1-5]?\d|60)\s?([^ABIOYZabioyz])\s?([A-Za-z]{2})\s?(\d{10}|\d{8}|\d{6}|\d{4}|\d{2}|\d{1,5}\s\d{1,5})$/,
-  utm:    /^([1-6]\d|[1-9])([C-Xc-x])\s+(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)$/
+  ddmLng:
+    /^[\+-]?((1[0-7]\d|[1-9]?\d)\D+[1-6]?\d(\.\d{1,})?|180(\D+0)?)\D+[EWew]?$/,
+  mgrs: /^([1-5]?\d|60)\s?([^ABIOYZabioyz])\s?([A-Za-z]{2})\s?(\d{10}|\d{8}|\d{6}|\d{4}|\d{2}|\d{1,5}\s\d{1,5})$/,
+  utm: /^([1-6]\d|[1-9])([C-Xc-x])\s+(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)$/,
 };
 
 export const CombinedExpressions = {
-  lat: new RegExp(`^${[PATTERNS.ddLat, PATTERNS.dmsLat, PATTERNS.ddmLat].map(ptrn => ptrn.toString().replace(/^\/\^(.+?)\$\//g,'($1)')).join('|')}$`),
-  lng: new RegExp(`^${[PATTERNS.ddLng, PATTERNS.dmsLng, PATTERNS.ddmLng].map(ptrn => ptrn.toString().replace(/^\/\^(.+?)\$\//g,'($1)')).join('|')}$`)
-}
+  lat: new RegExp(
+    `^${[PATTERNS.ddLat, PATTERNS.dmsLat, PATTERNS.ddmLat].map((ptrn) => ptrn.toString().replace(/^\/\^(.+?)\$\//g, '($1)')).join('|')}$`
+  ),
+  lng: new RegExp(
+    `^${[PATTERNS.ddLng, PATTERNS.dmsLng, PATTERNS.ddmLng].map((ptrn) => ptrn.toString().replace(/^\/\^(.+?)\$\//g, '($1)')).join('|')}$`
+  ),
+};

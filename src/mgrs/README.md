@@ -1,15 +1,14 @@
-mgrs
-====
+# mgrs
 
 Utility for converting between WGS84 lat/lng and MGRS coordinates, spunoff from [proj4js](https://github.com/proj4js/proj4js)
 
 has 3 methods
 
 - forward, takes an array of `[lon,lat]` and optional accuracy and returns an mgrs string
-- inverse, takes an mgrs string and returns a bbox. 
+- inverse, takes an mgrs string and returns a bbox.
 - toPoint, takes an mgrs string, returns an array of '[lon,lat]'
 
-install dev dependencies with 
+install dev dependencies with
 
 ```bash
 npm install
@@ -32,7 +31,6 @@ build with
 ```bash
 npm run build
 ```
-
 
 Licensed under the MIT license except:
 

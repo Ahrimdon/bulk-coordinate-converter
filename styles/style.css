@@ -65,7 +65,8 @@ thead {
   color: #ffffff;
 }
 
-td, th {
+td,
+th {
   white-space: nowrap;
 }
 
@@ -74,7 +75,9 @@ th {
   padding-right: 10px;
 }
 
-tbody tr:nth-child(even) {background-color: #f2f2f2;}
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
 td {
   font-size: 0.75em;

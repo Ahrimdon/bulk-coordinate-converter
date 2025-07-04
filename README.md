@@ -12,10 +12,10 @@ Just clone the repo to your local http server and browse to it.
 
 Class for doing work with various coordinate systems. Currently supporting:
 
-* MGRS - Military Grid Reference System
-* DD - Decimal Degrees
-* DDM - Degrees Decimal Minutes
-* DMS - Degrees Minutes Seconds
+- MGRS - Military Grid Reference System
+- DD - Decimal Degrees
+- DDM - Degrees Decimal Minutes
+- DMS - Degrees Minutes Seconds
 
 ## Usage
 

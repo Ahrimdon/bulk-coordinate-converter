@@ -25,14 +25,14 @@ export class UniversalTransverseMercator {
       throw new Error(errors);
     }
     // ${zoneNum}${zoneLetter} ${easting} ${northing}
-    const utm       = this.normalize(reference);
-    this.display    = utm;
-    this.easting    = utm.split(' ')[1];
-    this.northing   = utm.split(' ')[2];
+    const utm = this.normalize(reference);
+    this.display = utm;
+    this.easting = utm.split(' ')[1];
+    this.northing = utm.split(' ')[2];
     this.zoneLetter = utm.split(' ')[0].match(/[C-X]/)[0];
-    this.zoneNum    = utm.split(' ')[0].match(/^\d+/)[0];
+    this.zoneNum = utm.split(' ')[0].match(/^\d+/)[0];
     return this;
-  };
+  }
 
   /**
    * Validates reference against known good pattern
@@ -70,13 +70,18 @@ export class UniversalTransverseMercator {
    *
    */
   toDD() {
-    const { latitude, longitude } = utm.toLatLon(this.easting, this.northing, this.zoneNum, this.zoneLetter);
+    const { latitude, longitude } = utm.toLatLon(
+      this.easting,
+      this.northing,
+      this.zoneNum,
+      this.zoneLetter
+    );
 
     return {
       lat: parseFloat(latitude.toFixed(5)),
-      lng: parseFloat(longitude.toFixed(5))
-    }
-  };
+      lng: parseFloat(longitude.toFixed(5)),
+    };
+  }
 
   /**
    * Converts to Military Grid Reference System
@@ -100,21 +105,20 @@ export class UniversalTransverseMercator {
     // ϕ = latitude
     // λ = longitude
     const ϕabs = Math.abs(lat);
-    const ϕdir = lat<0 ? 'S' : 'N';
+    const ϕdir = lat < 0 ? 'S' : 'N';
     const ϕdeg = Math.trunc(ϕabs);
-    const ϕmin = parseFloat(parseFloat(`${(ϕabs-ϕdeg)*60}`).toFixed(5));
+    const ϕmin = parseFloat(parseFloat(`${(ϕabs - ϕdeg) * 60}`).toFixed(5));
     const λabs = Math.abs(lng);
-    const λdir = lng<0 ? 'W' : 'E';
+    const λdir = lng < 0 ? 'W' : 'E';
     const λdeg = Math.trunc(λabs);
-    const λmin = parseFloat(parseFloat(`${(λabs-λdeg)*60}`).toFixed(5));
+    const λmin = parseFloat(parseFloat(`${(λabs - λdeg) * 60}`).toFixed(5));
 
     const ddmCoordSet = {
-      lat: `${ϕdeg}° ${(ϕmin<0) ? 0 : ϕmin}′ ${ϕdir}`,
-      lng: `${λdeg}° ${(λmin<0) ? 0 : λmin}′ ${λdir}`
+      lat: `${ϕdeg}° ${ϕmin < 0 ? 0 : ϕmin}′ ${ϕdir}`,
+      lng: `${λdeg}° ${λmin < 0 ? 0 : λmin}′ ${λdir}`,
     };
     return ddmCoordSet;
   }
-
 
   /**
    * Converts Decimal Degrees to Degree Minute Second
@@ -127,21 +131,20 @@ export class UniversalTransverseMercator {
     // ϕ = latitude
     // λ = longitude
     const ϕabs = Math.abs(lat);
-    const ϕdir = lat<0 ? 'S' : 'N';
+    const ϕdir = lat < 0 ? 'S' : 'N';
     const ϕdeg = Math.trunc(ϕabs);
-    const ϕmin = Math.trunc((ϕabs-ϕdeg)*60);
-    const ϕsec = Math.trunc((ϕabs-ϕdeg-ϕmin/60)*3600);
+    const ϕmin = Math.trunc((ϕabs - ϕdeg) * 60);
+    const ϕsec = Math.trunc((ϕabs - ϕdeg - ϕmin / 60) * 3600);
     const λabs = Math.abs(lng);
-    const λdir = lng<0 ? 'W' : 'E';
+    const λdir = lng < 0 ? 'W' : 'E';
     const λdeg = Math.trunc(λabs);
-    const λmin = Math.trunc((λabs-λdeg)*60);
-    const λsec = Math.trunc((λabs-λdeg-λmin/60)*3600);
+    const λmin = Math.trunc((λabs - λdeg) * 60);
+    const λsec = Math.trunc((λabs - λdeg - λmin / 60) * 3600);
 
     const dmsCoordSet = {
-      lat: `${ϕdeg}° ${(ϕmin < 0) ? 0 : ϕmin}′ ${(ϕsec < 0) ? 0 : ϕsec}″ ${ϕdir}`,
-      lng: `${λdeg}° ${(λmin < 0) ? 0 : λmin}′ ${(λsec < 0) ? 0 : λsec}″ ${λdir}`
+      lat: `${ϕdeg}° ${ϕmin < 0 ? 0 : ϕmin}′ ${ϕsec < 0 ? 0 : ϕsec}″ ${ϕdir}`,
+      lng: `${λdeg}° ${λmin < 0 ? 0 : λmin}′ ${λsec < 0 ? 0 : λsec}″ ${λdir}`,
     };
     return dmsCoordSet;
   }
-
-};
+}

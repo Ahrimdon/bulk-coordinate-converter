@@ -25,7 +25,7 @@ export class DecimalDegrees {
     this.lng = normalizedCoords.lng;
 
     return this;
-  };
+  }
 
   /**
    * Validates coordinates against known good patterns
@@ -44,7 +44,7 @@ export class DecimalDegrees {
       errors.push('Invalid Longitude');
     }
     return errors;
-  };
+  }
 
   /**
    * Normalizes Decimal Degrees
@@ -59,7 +59,8 @@ export class DecimalDegrees {
     for (let key in coords) {
       // If South or West direction, the result should be inverted.
       const invert = /[SsWw]/.test(coords[key]) ? -1 : 1;
-      nCoords[key] = parseFloat(String(coords[key]).replace(/[^\d\.-]+/g,'')) * invert;
+      nCoords[key] =
+        parseFloat(String(coords[key]).replace(/[^\d\.-]+/g, '')) * invert;
     }
     return nCoords;
   }
@@ -75,13 +76,13 @@ export class DecimalDegrees {
     const utmdata = utm.fromLatLon(lat, lng);
 
     return {
-      display    : utmdata.display,
-      easting    : utmdata.easting,
-      northing   : utmdata.northing,
-      zoneLetter : utmdata.zoneLetter,
-      zoneNum    : utmdata.zoneNum
-    }
-  };
+      display: utmdata.display,
+      easting: utmdata.easting,
+      northing: utmdata.northing,
+      zoneLetter: utmdata.zoneLetter,
+      zoneNum: utmdata.zoneNum,
+    };
+  }
 
   /**
    * Converts Decimal Degrees to Degree Minute Second
@@ -93,19 +94,19 @@ export class DecimalDegrees {
     // ϕ = latitude
     // λ = longitude
     const ϕabs = Math.abs(this.lat);
-    const ϕdir = this.lat<0 ? 'S' : 'N';
+    const ϕdir = this.lat < 0 ? 'S' : 'N';
     const ϕdeg = Math.trunc(ϕabs);
-    const ϕmin = Math.trunc((ϕabs-ϕdeg)*60);
-    const ϕsec = Math.trunc((ϕabs-ϕdeg-ϕmin/60)*3600);
+    const ϕmin = Math.trunc((ϕabs - ϕdeg) * 60);
+    const ϕsec = Math.trunc((ϕabs - ϕdeg - ϕmin / 60) * 3600);
     const λabs = Math.abs(this.lng);
-    const λdir = this.lng<0 ? 'W' : 'E';
+    const λdir = this.lng < 0 ? 'W' : 'E';
     const λdeg = Math.trunc(λabs);
-    const λmin = Math.trunc((λabs-λdeg)*60);
-    const λsec = Math.trunc((λabs-λdeg-λmin/60)*3600);
+    const λmin = Math.trunc((λabs - λdeg) * 60);
+    const λsec = Math.trunc((λabs - λdeg - λmin / 60) * 3600);
 
     const dmsCoordSet = {
-      lat: `${ϕdeg}° ${(ϕmin < 0) ? 0 : ϕmin}′ ${(ϕsec < 0) ? 0 : ϕsec}″ ${ϕdir}`,
-      lng: `${λdeg}° ${(λmin < 0) ? 0 : λmin}′ ${(λsec < 0) ? 0 : λsec}″ ${λdir}`
+      lat: `${ϕdeg}° ${ϕmin < 0 ? 0 : ϕmin}′ ${ϕsec < 0 ? 0 : ϕsec}″ ${ϕdir}`,
+      lng: `${λdeg}° ${λmin < 0 ? 0 : λmin}′ ${λsec < 0 ? 0 : λsec}″ ${λdir}`,
     };
     return dmsCoordSet;
   }
@@ -120,17 +121,17 @@ export class DecimalDegrees {
     // ϕ = latitude
     // λ = longitude
     const ϕabs = Math.abs(this.lat);
-    const ϕdir = this.lat<0 ? 'S' : 'N';
+    const ϕdir = this.lat < 0 ? 'S' : 'N';
     const ϕdeg = Math.trunc(ϕabs);
-    const ϕmin = parseFloat(parseFloat(`${(ϕabs-ϕdeg)*60}`).toFixed(5));
+    const ϕmin = parseFloat(parseFloat(`${(ϕabs - ϕdeg) * 60}`).toFixed(5));
     const λabs = Math.abs(this.lng);
-    const λdir = this.lng<0 ? 'W' : 'E';
+    const λdir = this.lng < 0 ? 'W' : 'E';
     const λdeg = Math.trunc(λabs);
-    const λmin = parseFloat(parseFloat(`${(λabs-λdeg)*60}`).toFixed(5));
+    const λmin = parseFloat(parseFloat(`${(λabs - λdeg) * 60}`).toFixed(5));
 
     const ddmCoordSet = {
-      lat: `${ϕdeg}° ${(ϕmin<0) ? 0 : ϕmin}′ ${ϕdir}`,
-      lng: `${λdeg}° ${(λmin<0) ? 0 : λmin}′ ${λdir}`
+      lat: `${ϕdeg}° ${ϕmin < 0 ? 0 : ϕmin}′ ${ϕdir}`,
+      lng: `${λdeg}° ${λmin < 0 ? 0 : λmin}′ ${λdir}`,
     };
     return ddmCoordSet;
   }
@@ -144,4 +145,4 @@ export class DecimalDegrees {
   toMGRS() {
     return mgrs.forward([this.lng, this.lat], 5);
   }
-};
+}
